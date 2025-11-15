@@ -9,16 +9,14 @@ class CharacterStuffing {
         System.out.println("Original data: " + input);
 
         StringBuilder stuffedData = new StringBuilder();
-        char ESC = (char) 0x7D;
-        char FLAG = (char) 0x7E;
+        char ESC = (char) 0x7D;   // }
+        char FLAG = (char) 0x7E;  // ~
 
         for (char ch : input.toCharArray()) {
-            if (ch == FLAG) {
-                stuffedData.append(ESC);
-                stuffedData.append((char) (ch ^ 0x20)); //stuffedData.append(FLAG);
-            } else {
-                stuffedData.append(ch);
+            if (ch == FLAG || ch == ESC) {
+                stuffedData.append(ESC);   // add ESC before special char
             }
+            stuffedData.append(ch);
         }
 
         System.out.println("Stuffed Data: " + stuffedData);
