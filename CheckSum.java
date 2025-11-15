@@ -1,19 +1,26 @@
-public class CheckSum {
+import java.util.*;
+
+class CheckSum {
     public static void main(String[] args) {
-        String b1 = "10101010";
-        String b2 = "11110000";
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int sum = 0;
 
-        int sum = Integer.parseInt(b1, 2) + Integer.parseInt(b2, 2);
+        for(int i = 0; i < n; i++)
+            sum += sc.nextInt();
 
-        // Handle carry for 8-bit addition
-         sum = (sum & 0xFF) + (sum >> 8);
+        int checksum = ~sum;   // 1's complement
+        System.out.println("Checksum: " + checksum);
 
-        // One's complement
-         int checksum = ~sum & 0xFF;
+        int recvSum = 0;
+        for(int i = 0; i < n; i++)
+            recvSum += sc.nextInt();
 
-        // Convert to binary string
-        String checksumBin = String.format("%8s", Integer.toBinaryString(checksum)).replace(' ', '0');
+        recvSum += sc.nextInt();   // add checksum
 
-        System.out.println("CheckSum: " + checksumBin);
+        if(~recvSum == 0)
+            System.out.println("No Error");
+        else
+            System.out.println("Error Found");
     }
 }
